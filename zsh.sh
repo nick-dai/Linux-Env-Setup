@@ -93,6 +93,14 @@ fi
 # zsh settings file location
 zshrc=~/.zshrc
 
+# Install zsh-completions
+echo "- Installing zsh-completions..."
+plugin_ln=$(awk '/^plugins=\(/ {print FNR}' $zshrc)
+sed -i "$plugin_ln a\
+\ \ zsh-completions
+" $zshrc
+autoload -U compinit && compinit
+
 echo "- Applying themes and settings..."
 # Apply 'agnoster' theme
 if hasCommand brew ; then # For Mac
