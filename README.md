@@ -34,7 +34,7 @@ Here are some scripts that I use to customize my Linux environment.
 
 ## Zsh
 - Tested on **Ubuntu 16.04, Kali 2017.1 and MacOS**.
-- Install zsh, oh-my-zsh.
+- Install zsh, oh-my-zsh, zsh-completions.
 - Install Arc-OSX-Icons, Ultra-Flat-Icons, OSX-Arc-Theme for Gnome.
 - Apply Powerline fonts and Solarized for Gnome's terminal.
 - Totally automatically install if your password is provided.
