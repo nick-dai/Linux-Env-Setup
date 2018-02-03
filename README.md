@@ -42,3 +42,13 @@ Here are some scripts that I use to customize my Linux environment.
 ```
 ./zsh.sh <your_password>
 ```
+
+## Sftp-Server
+- Tested on **Ubuntu 16.04, Kali 2017.1**.
+- Automatically configure SFTP server.
+- Create a new user with custom settings.
+- With default settings, a user "sftpuser:sftponly" will be created with a password "QwErTy6666", and its upload directory will be in ~/upload.
+- Syntax:
+```
+./sftp-server.sh [-u <username>] [-g <group>] [-p <password>] [<upload_directory>]
+```

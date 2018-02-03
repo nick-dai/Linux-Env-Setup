@@ -8,6 +8,7 @@ modifyOrInsert() {
 	if [[ $? -eq 0 ]]; then
 		sudo sed -i "s/$1/$2/" "$3"
 	else
+        # Stdout of echo will be under regular permissions, and cause a Permission Denied.
 		printf "\n$2\n" | sudo tee --append "$3" > /dev/null
 	fi
 }
@@ -24,7 +25,7 @@ usr_ssh_dir=~/.ssh
 auth_keys=$usr_ssh_dir/authorized_keys
 
 echo "- Installing OpenSSH Server..."
-sudo apt install openssh-server
+sudo apt install openssh-server -y
 
 # https://blog.gtwang.org/linux/linux-ssh-public-key-authentication/
 echo "- Generating key pair..."
