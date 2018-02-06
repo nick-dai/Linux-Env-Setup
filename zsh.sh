@@ -76,9 +76,9 @@ else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-# echo "- Setting zsh as your default shell..."
-# # chsh: change your shell
-# chsh -s $(which zsh)
+echo "- Setting zsh as your default shell..."
+# chsh: change your shell
+chsh -s $(which zsh)
 
 # echo "- Installing zsh-completions..."
 # git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
@@ -94,11 +94,19 @@ fi
 zshrc=~/.zshrc
 
 # Install zsh-completions
+git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
 echo "- Installing zsh-completions..."
-plugin_ln=$(awk '/^plugins=\(/ {print FNR}' $zshrc)
-sed -i "$plugin_ln a\
-\ \ zsh-completions
-" $zshrc
+sed -i "s/^plugins=(/plugins=(zsh-completions /g" $zshrc
+# Get line number of plugins and append one more line.
+# plugin_ln=$(awk '/^plugins=\(/ {print FNR}' $zshrc)
+# sed -i "$plugin_ln a\
+# \ \ zsh-completions
+# " $zshrc
+autoload -U compinit && compinit
+
+# Install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+sed -i "s/^plugins=(/plugins=(zsh-autosuggestions /g" $zshrc
 autoload -U compinit && compinit
 
 echo "- Applying themes and settings..."
@@ -134,50 +142,39 @@ fi
 # https://stackoverflow.com/questions/38086185/how-to-check-if-a-program-is-run-in-bash-on-ubuntu-on-windows-and-not-just-plain
 # https://github.com/Microsoft/WSL/issues/1724#issuecomment-282420193
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+    # Some aliases for WSL
     echo "alias cmd='cmd.exe /c'" >> $zshrc
     echo "alias pws='powershell.exe -c'" >> $zshrc
-#     bashrc="~/.bashrc"
-#     echo "# Switch to Zsh" >> $bashrc
-#     echo "if test -t 1; then" >> $bashrc
-#     echo "    exec zsh" >> $bashrc
-#     echo "fi" >> $bashrc
+    # For WSL Beta before Fall Creator Update
+    # bashrc="~/.bashrc"
+    # echo "# Switch to Zsh" >> $bashrc
+    # echo "if test -t 1; then" >> $bashrc
+    # echo "    exec zsh" >> $bashrc
+    # echo "fi" >> $bashrc
 else
     user=$(whoami)
     sed -i "s/export DEFAULT_USER=\"\w*\"//g" $zshrc # Remove existing entry to avoid duplicate
     echo "export DEFAULT_USER=\"$user\"" >> $zshrc
 fi
 
-# Apply these themes and icons only to Gnome-based Linux.
-if hasCommand gsettings ; then
-    # Install icons
-    git clone https://github.com/LinxGem33/Arc-OSX-Icons.git
-    $dosu mv Arc-OSX-Icons/src/Arc-OSX-D /usr/share/icons
-    $dosu mv Arc-OSX-Icons/src/Arc-OSX-P /usr/share/icons
-    $dosu mv Arc-OSX-Icons/src/Paper-Mono-Dark /usr/share/icons
-    $dosu mv Arc-OSX-Icons/src/Paper /usr/share/icons
-    rm -rf Arc-OSX-Icons
+# Oh-My-Tmux
+# https://github.com/gpakosz/.tmux
+if hasCommand tmux; then
+    cd
+    git clone https://github.com/gpakosz/.tmux.git
+    ln -s -f .tmux/.tmux.conf
+    cp .tmux/.tmux.conf.local .
 
-    # Install themes for Linux
-    # https://github.com/LinxGem33/OSX-Arc-White/releases
-    $dosu $inst gnome-themes-standard gtk2-engines-murrine
-    osx_url[0]="https://github.com/LinxGem33/OSX-Arc-White/releases/download/v1.4.3/osx-arc-collection_1.4.3_amd64.deb"
-    osx_url[1]="https://github.com/LinxGem33/OSX-Arc-White/releases/download/v1.4.3/osx-arc-collection_1.4.3_i386.deb"
-    index=1
-    if [ "$bit" -eq "64" ] ; then
-        index=0
-    fi
-    # Remove patterns matching "*/"
-    filename=${osx_url[index]##*/}
-    wget ${osx_url[index]}
-    if [[ "$1" != "" ]]; then
-        printf "$1\nexit\n" | $dosu dpkg -i $filename
-    else
-        $dosu dpkg -i $filename
-    fi
-    rm -rf $filename
+    tmux_conf=".tmux.conf.local"
+    sed -i "s/\(^tmux_conf_theme_left_separator_main=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_left_separator_sub=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_right_separator_main=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_right_separator_sub=.*\)/# \1/g" $tmux_conf
 
-    printf "\n" | $dosu add-apt-repository ppa:noobslab/themes
-    printf "\n" | $dosu add-apt-repository ppa:noobslab/icons
-    $dosu $pkgmgr update
-    $dosu $inst flatabulous-theme ultra-flat-icons
+    sed -i "s/#\(tmux_conf_theme_left_separator_main=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_left_separator_sub=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_right_separator_main=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_right_separator_sub=.*\)/\1/g" $tmux_conf
+
+    sed -i "s/^tmux_conf_theme_highlight_focused_pane=.*/tmux_conf_theme_highlight_focused_pane=false/g" $tmux_conf
 fi
