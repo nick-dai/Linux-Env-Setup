@@ -78,36 +78,28 @@ fi
 
 echo "- Setting zsh as your default shell..."
 # chsh: change your shell
-chsh -s $(which zsh)
-
-# echo "- Installing zsh-completions..."
-# git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
-# if [ $? == 0 ]; then
-#     echo "- Integrating zsh with zsh-completions..."
-#     echo "# zsh-completions" >> $zshrc
-#     echo "fpath=(/usr/local/share/zsh-completions \$fpath)" >> $zshrc
-# else
-#     echo "  Failed."
-# fi
+if [[ "$1" != "" ]]; then
+    printf "$1\n" | chsh -s $(which zsh)
+else
+    chsh -s $(which zsh)
+fi
 
 # zsh settings file location
 zshrc=~/.zshrc
 
+echo "- Installing plugins for Zsh..."
 # Install zsh-completions
-git clone https://github.com/zsh-users/zsh-completions $ZSH_CUSTOM/plugins/zsh-completions
-echo "- Installing zsh-completions..."
+git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+# Install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 sed -i "s/^plugins=(/plugins=(zsh-completions /g" $zshrc
+sed -i "s/^plugins=(/plugins=(zsh-autosuggestions /g" $zshrc
 # Get line number of plugins and append one more line.
 # plugin_ln=$(awk '/^plugins=\(/ {print FNR}' $zshrc)
 # sed -i "$plugin_ln a\
 # \ \ zsh-completions
 # " $zshrc
-autoload -U compinit && compinit
-
-# Install zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-sed -i "s/^plugins=(/plugins=(zsh-autosuggestions /g" $zshrc
-autoload -U compinit && compinit
+# autoload -U compinit && compinit
 
 echo "- Applying themes and settings..."
 # Apply 'agnoster' theme
@@ -151,11 +143,10 @@ if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     # echo "if test -t 1; then" >> $bashrc
     # echo "    exec zsh" >> $bashrc
     # echo "fi" >> $bashrc
-else
-    user=$(whoami)
-    sed -i "s/export DEFAULT_USER=\"\w*\"//g" $zshrc # Remove existing entry to avoid duplicate
-    echo "export DEFAULT_USER=\"$user\"" >> $zshrc
 fi
+user=$(whoami)
+sed -i "s/export DEFAULT_USER=\"\w*\"//g" $zshrc # Remove existing entry to avoid duplicate
+echo "export DEFAULT_USER=\"$user\"" >> $zshrc
 
 # Oh-My-Tmux
 # https://github.com/gpakosz/.tmux
