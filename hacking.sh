@@ -16,3 +16,9 @@ sudo pip install --upgrade pwntools
 sudo apt-get install binwalk -y
 
 sudo pip install ipython
+
+# Avoid "No such file or directory" message when you execute a 32-bit binary in a 64-bit Linux.
+# https://askubuntu.com/questions/133389/no-such-file-or-directory-but-the-file-exists
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 -y
