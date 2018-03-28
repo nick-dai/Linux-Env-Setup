@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Apply these themes and icons only to Gnome-based Linux.
-if ! type gsettings &> /dev/null ; then
+if type gsettings &> /dev/null ; then
     cd
     # Install icons
     git clone https://github.com/LinxGem33/Arc-OSX-Icons.git
@@ -30,4 +30,10 @@ if ! type gsettings &> /dev/null ; then
     printf "\n" | sudo add-apt-repository ppa:noobslab/icons
     sudo apt update
     sudo apt install -y flatabulous-theme ultra-flat-icons
+
+    # Set themes and icons
+    # https://askubuntu.com/questions/262868/how-to-set-icons-and-theme-from-terminal
+    gsettings set org.gnome.desktop.interface gtk-theme "OSX-Arc-Darker"
+    gsettings set org.gnome.desktop.wm.preferences theme "OSX-Arc-Darker"
+    gsettings set org.gnome.desktop.interface icon-theme "Arc-OSX-P"
 fi
