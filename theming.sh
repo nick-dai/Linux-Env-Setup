@@ -13,6 +13,7 @@ if type gsettings &> /dev/null ; then
 
     # Install themes for Linux
     # https://github.com/LinxGem33/OSX-Arc-White/releases
+    sudo apt update
     sudo apt install -y gnome-themes-standard gtk2-engines-murrine
     osx_url[0]="https://github.com/LinxGem33/OSX-Arc-White/releases/download/v1.4.7/osx-arc-collection_1.4.7_amd64.deb"
     osx_url[1]="https://github.com/LinxGem33/OSX-Arc-White/releases/download/v1.4.7/osx-arc-collection_1.4.7_i386.deb"
@@ -27,10 +28,10 @@ if type gsettings &> /dev/null ; then
     rm -rf $osx_filename
 
     # printf "\n" | sudo add-apt-repository ppa:noobslab/themes
-    printf "\n" | sudo add-apt-repository ppa:noobslab/icons
-    sudo apt update
+    # printf "\n" | sudo add-apt-repository ppa:noobslab/icons
+    # sudo apt update
     # sudo apt install -y flatabulous-theme
-    sudo apt install -y ultra-flat-icons
+    # sudo apt install -y ultra-flat-icons
 
     # Set themes and icons
     # https://askubuntu.com/questions/262868/how-to-set-icons-and-theme-from-terminal
