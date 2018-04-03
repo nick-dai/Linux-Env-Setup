@@ -76,13 +76,13 @@ else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
-echo "- Setting zsh as your default shell..."
-# chsh: change your shell
-if [[ "$1" != "" ]]; then
-    printf "$1\n" | chsh -s $(which zsh)
-else
-    chsh -s $(which zsh)
-fi
+# echo "- Setting zsh as your default shell..."
+# # chsh: change your shell
+# if [[ "$1" != "" ]]; then
+#     printf "$1\n" | chsh -s $(which zsh)
+# else
+#     chsh -s $(which zsh)
+# fi
 
 # zsh settings file location
 zshrc=~/.zshrc
