@@ -22,6 +22,8 @@ echo "- New gateway: $gateway"
 dns="8.8.8.8 8.8.4.4"
 echo "- New DNS: $dns"
 
+echo "- The process will start in 5 seconds..."
+sleep 5
 # https://askubuntu.com/questions/246077/how-to-setup-a-static-ip-for-network-manager-in-virtual-box-on-ubuntu-server
 # https://unix.stackexchange.com/questions/349607/nmcli-commands-for-static-ip-networking-in-centos-7
 echo "- Applying..."
