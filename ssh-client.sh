@@ -52,7 +52,7 @@ chmod 700 "$ssh_dir"
 ssh-keygen -f $ssh_dir/$key -t rsa -N ""
 
 echo "- Copying to Server..."
-ssh-copy-id -i $ssh_dir/$key $user@$host
+ssh-copy-id -i $ssh_dir/$key -p $port $user@$host
 
 echo "- Generating SSH config..."
 printf "$config" >> $ssh_dir/config
