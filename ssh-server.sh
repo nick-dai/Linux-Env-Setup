@@ -1,6 +1,4 @@
 #!/bin/bash
-# Arguments:
-# 1. Port number
 
 # Arguments: pattern, replacement, file
 modifyOrInsert() {
@@ -13,31 +11,43 @@ modifyOrInsert() {
 	fi
 }
 
-if [ "$#" > 0 ]; then
-	port=$1
-else
-	port=22
-fi
-echo "- Port: $port"
-max_tries=3
-sys_config=/etc/ssh/sshd_config
-usr_ssh_dir=~/.ssh
-auth_keys=$usr_ssh_dir/authorized_keys
+port="22"
+max_tries="3"
+sys_config="/etc/ssh/sshd_config"
+root_login="0"
+password_login="0"
+
+usage() {
+    echo "Usage: $0 [-p <port>] [-r] [-w]"
+    echo
+    echo "OPTIONS"
+    echo "    -p    Specify port number."
+    echo "    -r    Enable Root Login."
+    echo "    -w    Enable Password Login."
+    exit 1;
+}
+# First : is for silent logging.
+while getopts ":p:rw" o; do
+    case "${o}" in
+        p)
+            port=${OPTARG}
+            ;;
+        r)
+            root_login="1"
+            ;;
+        w)
+            password_login="1"
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift "$((OPTIND-1))"
 
 echo "- Installing OpenSSH Server..."
+sudo apt update
 sudo apt install openssh-server -y
-
-# https://blog.gtwang.org/linux/linux-ssh-public-key-authentication/
-echo "- Generating key pair..."
-ssh_key=id_rsa
-mkdir -p "$usr_ssh_dir"
-chmod 700 "$usr_ssh_dir"
-ssh-keygen -f "$usr_ssh_dir/$ssh_key" -t rsa -N ""
-if [ ! -e $auth_keys ]; then
-	touch $auth_keys
-fi
-chmod 644 "$auth_keys"
-modifyOrInsert "*$USER@$(hostname)" "$(cat $usr_ssh_dir/$ssh_key)" "$auth_keys"
 
 echo "- Backing up original config file..."
 sudo cp $sys_config $sys_config.bak
@@ -45,21 +55,21 @@ sudo cp $sys_config $sys_config.bak
 # https://linux-audit.com/audit-and-harden-your-ssh-configuration/
 echo "- Setting port..."
 modifyOrInsert "^[^#]*Port .*" "Port $port" $sys_config
-modifyOrInsert "^[^#]*PermitRootLogin .*" "PermitRootLogin yes" $sys_config
-echo "- Restarting service..."
-sudo service ssh restart
-
-ip=$(hostname -I | sed "s/[[:space:]]//")
-echo "- Remember to copy SSH key: scp -P $port $USER@$ip:$usr_ssh_dir/$ssh_key.pub"
-read -n1 -r -p "- Press any key to continue..." key
 
 echo "- Configuring security options..."
+if [[ "$root_login" -eq "1" ]]; then
+	modifyOrInsert "^[^#]*PermitRootLogin .*" "PermitRootLogin yes" $sys_config
+else
+	modifyOrInsert "^[^#]*PermitRootLogin .*" "PermitRootLogin no" $sys_config
+fi
+
+if [[ "$password_login" -eq "1" ]]; then
+	modifyOrInsert "^[^#]*PasswordAuthentication .*" "PasswordAuthentication yes" $sys_config
+else
+	modifyOrInsert "^[^#]*PasswordAuthentication .*" "PasswordAuthentication no" $sys_config
+fi
 modifyOrInsert "^[^#]*PermitEmptyPasswords .*" "PermitEmptyPasswords no" $sys_config
-modifyOrInsert "^[^#]*PermitRootLogin .*" "PermitRootLogin no" $sys_config
-
-modifyOrInsert "^[^#]*PasswordAuthentication .*" "PasswordAuthentication no" $sys_config
 modifyOrInsert "^[^#]*PubkeyAuthentication .*" "PubkeyAuthentication yes" $sys_config
-
 modifyOrInsert "^[^#]*X11Forwarding .*" "X11Forwarding no" $sys_config
 modifyOrInsert "^[^#]*IgnoreRhosts .*" "IgnoreRhosts yes" $sys_config
 modifyOrInsert "^[^#]*UseDNS .*" "UseDNS yes" $sys_config
