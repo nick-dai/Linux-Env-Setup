@@ -147,25 +147,24 @@ else
     # Oh-My-Tmux
     # https://github.com/gpakosz/.tmux
     # It's buggy on WSL.
-    if hasCommand tmux; then
-        cd
-        git clone https://github.com/gpakosz/.tmux.git
-        ln -s -f .tmux/.tmux.conf
-        cp .tmux/.tmux.conf.local .
+    sudo apt update && sudo apt install tmux -y
+    cd
+    git clone https://github.com/gpakosz/.tmux.git
+    ln -s -f .tmux/.tmux.conf
+    cp .tmux/.tmux.conf.local .
 
-        tmux_conf=".tmux.conf.local"
-        sed -i "s/\(^tmux_conf_theme_left_separator_main=.*\)/# \1/g" $tmux_conf
-        sed -i "s/\(^tmux_conf_theme_left_separator_sub=.*\)/# \1/g" $tmux_conf
-        sed -i "s/\(^tmux_conf_theme_right_separator_main=.*\)/# \1/g" $tmux_conf
-        sed -i "s/\(^tmux_conf_theme_right_separator_sub=.*\)/# \1/g" $tmux_conf
+    tmux_conf=".tmux.conf.local"
+    sed -i "s/\(^tmux_conf_theme_left_separator_main=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_left_separator_sub=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_right_separator_main=.*\)/# \1/g" $tmux_conf
+    sed -i "s/\(^tmux_conf_theme_right_separator_sub=.*\)/# \1/g" $tmux_conf
 
-        sed -i "s/#\(tmux_conf_theme_left_separator_main=.*\)/\1/g" $tmux_conf
-        sed -i "s/#\(tmux_conf_theme_left_separator_sub=.*\)/\1/g" $tmux_conf
-        sed -i "s/#\(tmux_conf_theme_right_separator_main=.*\)/\1/g" $tmux_conf
-        sed -i "s/#\(tmux_conf_theme_right_separator_sub=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_left_separator_main=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_left_separator_sub=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_right_separator_main=.*\)/\1/g" $tmux_conf
+    sed -i "s/#\(tmux_conf_theme_right_separator_sub=.*\)/\1/g" $tmux_conf
 
-        sed -i "s/^tmux_conf_theme_highlight_focused_pane=.*/tmux_conf_theme_highlight_focused_pane=false/g" $tmux_conf
-    fi
+    sed -i "s/^tmux_conf_theme_highlight_focused_pane=.*/tmux_conf_theme_highlight_focused_pane=false/g" $tmux_conf
 fi
 
 user=$(whoami)

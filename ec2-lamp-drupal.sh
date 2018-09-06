@@ -1,3 +1,4 @@
+#!/bin/bash
 # Remove installed Apache or PHP
 sudo yum remove httpd* php* -y
 # Install Apache 2.4, MariaDB and PHP 7.0

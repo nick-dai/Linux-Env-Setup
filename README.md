@@ -6,11 +6,11 @@ Here are some scripts that I use to customize my Linux environment.
 - Fix some scripting errors in official documents.
 - Fix permissions for Drupal.
 
-## Gdb-peda
-- Install **gdb-peda**.
+## Hacking
+- Install **gdb-peda, pwntools, python3-pwntools, binwalk, ipython**.
 
 ## My-Apps
-- Install apps I often use.
+- Install **vim, htop, tmux**.
 
 ## Set-Static-IP
 - Tested on **Ubuntu 16.04**.
@@ -22,20 +22,23 @@ Here are some scripts that I use to customize my Linux environment.
 ./set-static-ip.sh <last_byte_of_desired_IP>
 ```
 
-## SSH-Server
+## SSH-Server & SSH-Client
 - Tested on **Ubuntu 16.04 and Kali 2017.1**.
 - Install openssh and automatically generate key.
-- Customize port number.
 - Strengthen security options.
 - Syntax:
 ```
-./ssh-server.sh <port>
+# SSH-Server
+# -r: Enable Root Login
+# -w: Enable Password Login
+./ssh-server.sh [-p <port>] [-r] [-w]
+# SSH-Client
+./ssh-client.sh [-a <alias>] [-p <port>] <user>@<host>
 ```
 
 ## Zsh
 - Tested on **Ubuntu 16.04, Kali 2017.1 and MacOS**.
 - Install zsh, oh-my-zsh, zsh-completions.
-- Install Arc-OSX-Icons, Ultra-Flat-Icons, OSX-Arc-Theme for Gnome.
 - Apply Powerline fonts and Solarized for Gnome's terminal.
 - Totally automatically install if your password is provided.
 - Syntax:
@@ -52,3 +55,9 @@ Here are some scripts that I use to customize my Linux environment.
 ```
 ./sftp-server.sh [-u <username>] [-g <group>] [-p <password>] [<upload_directory>]
 ```
+
+## Theming
+- Install Arc-OSX-Icons, Ultra-Flat-Icons, OSX-Arc-Theme for Gnome.
+
+## Docker
+- Automatically install docker.
