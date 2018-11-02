@@ -70,7 +70,7 @@ else
 fi
 modifyOrInsert "^[^#]*PermitEmptyPasswords .*" "PermitEmptyPasswords no" $sys_config
 modifyOrInsert "^[^#]*PubkeyAuthentication .*" "PubkeyAuthentication yes" $sys_config
-modifyOrInsert "^[^#]*X11Forwarding .*" "X11Forwarding no" $sys_config
+modifyOrInsert "^[^#]*X11Forwarding .*" "X11Forwarding yes" $sys_config
 modifyOrInsert "^[^#]*IgnoreRhosts .*" "IgnoreRhosts yes" $sys_config
 modifyOrInsert "^[^#]*UseDNS .*" "UseDNS yes" $sys_config
 modifyOrInsert "^[^#]*MaxAuthTries .*" "MaxAuthTries $max_tries" $sys_config
