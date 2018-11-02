@@ -4,9 +4,12 @@ sudo apt-get update
 
 # https://github.com/longld/peda
 sudo apt-get install gdb -y
-git clone https://github.com/longld/peda.git ~/peda
-echo "source ~/peda/peda.py" >> ~/.gdbinit
-echo "DONE! debug your program with gdb and enjoy"
+# git clone https://github.com/longld/peda.git ~/peda
+# echo "source ~/peda/peda.py" >> ~/.gdbinit
+# echo "DONE! debug your program with gdb and enjoy"
+cd ~/
+git clone https://github.com/scwuaptx/Pwngdb.git 
+cp ~/Pwngdb/.gdbinit ~/
 
 # https://github.com/Gallopsled/pwntools
 # For Python 2
