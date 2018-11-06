@@ -4,9 +4,11 @@ sudo apt-get update
 
 # https://github.com/longld/peda
 sudo apt-get install gdb -y
-# git clone https://github.com/longld/peda.git ~/peda
-# echo "source ~/peda/peda.py" >> ~/.gdbinit
-# echo "DONE! debug your program with gdb and enjoy"
+# gdb-peda
+git clone https://github.com/longld/peda.git ~/peda
+echo "source ~/peda/peda.py" >> ~/.gdbinit
+echo "DONE! debug your program with gdb and enjoy"
+# pwngdb
 cd ~/
 git clone https://github.com/scwuaptx/Pwngdb.git 
 cp ~/Pwngdb/.gdbinit ~/
