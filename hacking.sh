@@ -1,23 +1,26 @@
 #!/bin/bash
 
 sudo apt-get update
+cd ~/
 
 # https://github.com/longld/peda
 sudo apt-get install gdb -y
 # gdb-peda
 git clone https://github.com/longld/peda.git ~/peda
 echo "source ~/peda/peda.py" >> ~/.gdbinit
-echo "DONE! debug your program with gdb and enjoy"
 # pwngdb
-cd ~/
 git clone https://github.com/scwuaptx/Pwngdb.git 
 cp ~/Pwngdb/.gdbinit ~/
+
+# radare2
+git clone https://github.com/radare/radare2
+cd radare2
+sys/install.sh   # just run this script to update r2 from git
 
 # https://github.com/Gallopsled/pwntools
 # For Python 2
 sudo apt-get install python2.7 python-pip python-dev git libssl-dev libffi-dev build-essential -y
-sudo pip install --upgrade pip
-sudo pip install --upgrade pwntools
+sudo pip install --upgrade pip pwntools
 # For Python 3
 sudo apt install python3 python3-dev python3-pip git -y
 sudo pip3 install --upgrade pip
