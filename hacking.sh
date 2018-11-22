@@ -42,3 +42,7 @@ sudo apt-get install gcc-multilib g++-multilib -y
 # OneGadget
 sudo apt-get install ruby -y
 sudo gem install one_gadget
+
+# The Ultimate vimrc
+git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
+sh ~/.vim_runtime/install_awesome_vimrc.sh
