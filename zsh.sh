@@ -165,6 +165,13 @@ else
     sed -i "s/#\(tmux_conf_theme_right_separator_sub=.*\)/\1/g" $tmux_conf
 
     sed -i "s/^tmux_conf_theme_highlight_focused_pane=.*/tmux_conf_theme_highlight_focused_pane=false/g" $tmux_conf
+
+    git clone https://github.com/tmux-plugins/tmux-resurrect
+    echo "run-shell ~/tmux-resurrect/resurrect.tmux" >> ~/.tmux.conf
+    git clone https://github.com/tmux-plugins/tmux-continuum
+    echo "run-shell ~/tmux-continuum/continuum.tmux" >> ~/.tmux.conf
+    tmux source-file ~/.tmux.conf
+
 fi
 
 user=$(whoami)
