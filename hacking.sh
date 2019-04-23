@@ -6,11 +6,14 @@ cd ~/
 # https://github.com/longld/peda
 sudo apt-get install gdb -y
 # gdb-peda
-git clone https://github.com/longld/peda.git ~/peda
-echo "source ~/peda/peda.py" >> ~/.gdbinit
+# git clone https://github.com/longld/peda.git ~/peda
+# echo "source ~/peda/peda.py" >> ~/.gdbinit
 # pwngdb
-git clone https://github.com/scwuaptx/Pwngdb.git 
-cp ~/Pwngdb/.gdbinit ~/
+# git clone https://github.com/scwuaptx/Pwngdb.git 
+# cp ~/Pwngdb/.gdbinit ~/
+
+# gef
+wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # radare2
 git clone https://github.com/radare/radare2
