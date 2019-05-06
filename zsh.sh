@@ -135,14 +135,15 @@ fi
 # https://github.com/Microsoft/WSL/issues/1724#issuecomment-282420193
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     # Some aliases for WSL
-    echo "alias cmd='cmd.exe /c'" >> $zshrc
-    echo "alias pws='powershell.exe -c'" >> $zshrc
+    # echo "alias cmd='cmd.exe /c'" >> $zshrc
+    # echo "alias pws='powershell.exe -c'" >> $zshrc
     # For WSL Beta before Fall Creator Update
-    # bashrc="~/.bashrc"
-    # echo "# Switch to Zsh" >> $bashrc
-    # echo "if test -t 1; then" >> $bashrc
-    # echo "    exec zsh" >> $bashrc
-    # echo "fi" >> $bashrc
+    # Also for executing zsh when you run WSL by command "bash".
+    bashrc=~/.bashrc
+    echo "# Switch to Zsh" >> $bashrc
+    echo "if test -t 1; then" >> $bashrc
+    echo "    exec zsh" >> $bashrc
+    echo "fi" >> $bashrc
 else
     # Oh-My-Tmux
     # https://github.com/gpakosz/.tmux
