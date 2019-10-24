@@ -109,12 +109,11 @@ else
     sed -i "s/ZSH_THEME=\"\w*\"/ZSH_THEME=\"agnoster\"/g" $zshrc
 fi
 
-# Download Powerline fonts
-git clone https://github.com/powerline/fonts.git --depth=1
-./fonts/install.sh
-rm -rf fonts
-
 if hasCommand gsettings ; then
+    # Download Powerline fonts
+    git clone https://github.com/powerline/fonts.git --depth=1
+    ./fonts/install.sh
+    rm -rf fonts
     # Apply Powerline fonts to fix the '~' character
     # https://askubuntu.com/questions/731774/how-to-change-gnome-terminal-profile-preferences-using-dconf-or-gsettings]
     # For Linux using Gnome.
@@ -134,9 +133,6 @@ fi
 # https://stackoverflow.com/questions/38086185/how-to-check-if-a-program-is-run-in-bash-on-ubuntu-on-windows-and-not-just-plain
 # https://github.com/Microsoft/WSL/issues/1724#issuecomment-282420193
 if grep -qE "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-    # Some aliases for WSL
-    # echo "alias cmd='cmd.exe /c'" >> $zshrc
-    # echo "alias pws='powershell.exe -c'" >> $zshrc
     # For WSL Beta before Fall Creator Update
     # Also for executing zsh when you run WSL by command "bash".
     bashrc=~/.bashrc

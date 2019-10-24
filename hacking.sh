@@ -49,3 +49,28 @@ sudo gem install one_gadget
 # The Ultimate vimrc
 git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime
 sh ~/.vim_runtime/install_awesome_vimrc.sh
+
+# Install Capstone and Keystone
+sudo apt install git cmake build-essential -y
+sudo apt install python python3 python-pip python3-pip -y
+# Keystone
+git clone https://github.com/keystone-engine/keystone.git
+cd keystone/
+mkdir build
+cd build
+../make-share.sh
+sudo make install
+sudo ldconfig
+sudo pip install keystone-engine
+sudo pip3 install keystone-engine
+cd ../..
+rm -rf keystone/
+# Capstone
+git clone https://github.com/aquynh/capstone.git
+cd capstone/
+./make.sh
+sudo ./make.sh install
+sudo pip install capstone
+sudo pip3 install capstone
+cd ..
+rm -rf capstone/
