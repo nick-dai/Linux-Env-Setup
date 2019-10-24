@@ -21,7 +21,7 @@ git clone https://github.com/radare/radare2
 
 # https://github.com/Gallopsled/pwntools
 # For Python 2
-sudo apt-get install python2.7 python-pip python-dev git libssl-dev libffi-dev build-essential -y
+sudo apt-get install python python-pip python-dev git libssl-dev libffi-dev build-essential -y
 sudo pip install --upgrade pip pwntools
 # For Python 3
 sudo apt-get install python3 python3-dev python3-pip git -y
