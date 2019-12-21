@@ -66,7 +66,6 @@ fi
 echo "- Downloading Oh My Zsh..."
 printf "n\nexit\n" | sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 chsh -s $(which zsh)
-exit # After chsh, it changes to the new shell.
 
 # zsh settings file location
 zshrc=~/.zshrc
