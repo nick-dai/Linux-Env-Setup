@@ -152,6 +152,7 @@ else
 
     $replace "s/^tmux_conf_theme_highlight_focused_pane=.*/tmux_conf_theme_highlight_focused_pane=false/g" $tmux_conf
 
+    mkdir ~/.tmux/plugins
     cd ~/.tmux/plugins
     git clone https://github.com/tmux-plugins/tmux-resurrect
     echo "run-shell ~/.tmux/plugins/tmux-resurrect/resurrect.tmux" >> ~/.tmux.conf
