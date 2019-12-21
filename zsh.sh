@@ -112,6 +112,7 @@ if hasCommand gsettings ; then
     git clone git://github.com/sigurdga/gnome-terminal-colors-solarized.git ~/.solarized
     cd ~/.solarized
     printf "1\n1\nYES\n1\n" | ~/.solarized/install.sh
+    cd
 fi
 
 # Hide user@hostname in zsh
