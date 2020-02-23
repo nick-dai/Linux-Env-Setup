@@ -79,8 +79,10 @@ fi
 echo "- Installing plugins for Zsh..."
 # Install zsh-completions
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-completions
 # Install zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+chmod 755 ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 $replace "s/^plugins=(/plugins=(zsh-completions /g" $zshrc
 $replace "s/^plugins=(/plugins=(zsh-autosuggestions /g" $zshrc
 # Get line number of plugins and append one more line.
